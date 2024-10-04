@@ -1,3 +1,31 @@
+// {
+//   "compilerOptions": {
+//     "target": "esnext",
+//     "lib": ["dom", "dom.iterable", "esnext"],
+//     "allowJs": true,
+//     "skipLibCheck": true,
+//     "strict": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "noEmit": true,
+//     "esModuleInterop": true,
+//     "moduleResolution": "node",
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "jsx": "react-native",
+//     "baseUrl": "./",  // Ensure baseUrl is set
+//     "paths": {
+//       "@/*": ["src/*"]  // Match with your folder structure
+//     }
+//   },
+//   "include": [
+//     "src/**/*.ts",    // Adjusted to include only src folder
+//     "src/**/*.tsx",   // Ensure you're working inside src
+//     ".expo/types/**/*.ts",
+//     "expo-env.d.ts"
+//   ],
+//   "extends": "expo/tsconfig.base"
+// }
+
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {

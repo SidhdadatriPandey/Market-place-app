@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+// import { ClerkProvider } from '@clerk/nextjs';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -34,5 +35,6 @@ export default function RootLayout() {
         {/* <Stack.Screen name="index" /> */}
       </Stack>
     </ThemeProvider>
+
   );
 }
