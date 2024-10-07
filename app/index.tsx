@@ -9,5 +9,4 @@ const index = () => {
         <Redirect href={'/LoginScreen'} />
     )
 }
-
 export default index

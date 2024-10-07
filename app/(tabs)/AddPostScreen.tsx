@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, TouchableOpacity, Dimensions, Image, ToastAndroid, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, TextInput, Button, TouchableOpacity, Dimensions, Image, ToastAndroid, Alert, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { getFirestore, getDocs, collection, addDoc } from "firebase/firestore";
 import { app } from '../firebaseConfig';
@@ -29,7 +29,7 @@ const AddPostScreen = () => {
         const querySnapshot = await getDocs(collection(db, 'Category'));
         querySnapshot.forEach((doc: any) => {
             // console.log("Docs:", doc.data());
-            setCategoryList(categoryList => [...categoryList, doc.data()])
+            setCategoryList(categoryList => [...categoryList, doc.data()]);
         })
     }
 
@@ -58,7 +58,6 @@ const AddPostScreen = () => {
             getDownloadURL(storageRef).then(async (downloadUrl: any) => {
                 // console.log(downloadUrl);
                 value.image = downloadUrl;
-
                 const docRef = await addDoc(collection(db, "userPost"), value);
                 if (docRef.id) {
                     setLoading(false);
@@ -67,120 +66,105 @@ const AddPostScreen = () => {
                 }
             })
         })
-        // if (image) {
-        //     try {
-        //         // Use FileSystem to read the image file as a base64 string
-        //         const fileInfo = await FileSystem.getInfoAsync(image);
 
-        //         if (fileInfo.exists) {
-        //             const fileUri = fileInfo.uri;
-        //             const blob = await (await fetch(fileUri)).blob();
-
-        //             const storageRef = ref(storage, 'uploads/' + Date.now() + '.jpg');
-
-        //             await uploadBytes(storageRef, blob).then((snapshot) => {
-        //                 console.log('Upload successful, snapshot:', snapshot);
-        //                 ToastAndroid.show('Upload successful!', ToastAndroid.SHORT);
-        //             }).catch((error) => {
-        //                 console.error('Upload failed:', error.message);
-        //                 ToastAndroid.show('Upload failed, check the console for details.', ToastAndroid.SHORT);
-        //             });
-        //         } else {
-        //             console.log("File doesn't exist.");
-        //             ToastAndroid.show("File doesn't exist.", ToastAndroid.SHORT);
-        //         }
-        //     } catch (err: any) {
-        //         console.error('Error in onSubmitMethod:', err.message);
-        //         ToastAndroid.show('An error occurred while uploading.', ToastAndroid.SHORT);
-        //     }
-        // }
     };
     return (
-        <Formik initialValues={{ title: '', desc: '', category: '', address: '', price: '', image: '' }}
-            onSubmit={value => onSubmitMethod(value)}
-            validate={(value) => {
-                const errors = {}
-                if (!value.title) {
-                    ToastAndroid.show('title must be there', ToastAndroid.SHORT);
-                    errors.name = 'Title'
-                }
-                return errors;
+        <KeyboardAvoidingView
+            style={{
+                marginTop: 100,
+                flex: 1,
+                // backgroundColor: 'blue'
             }}
         >
-            {({ handleChange, handleBlur, handleSubmit, values, errors }: any) => (
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: hp(3), fontWeight: 'bold' }}>Add new post</Text>
-                    <Text style={{ fontSize: hp(2) }}>Create new post and start selling</Text>
-                    <TouchableOpacity
-                        onPress={pickImage}
-                        style={{ margin: hp(1), backgroundColor: '#b3e6ff', padding: 5, borderRadius: hp(1), alignItems: 'center', justifyContent: 'center', }}>
-                        {
-                            image ? <Image source={{ uri: image }} style={{ width: hp(15), height: hp(10) }} /> : <Image
-                                style={{ height: hp(10), width: hp(15), margin: 0, }}
-                                source={require('@/assets/images/imagePlaceholder2.png')}
-                                resizeMode='stretch'
-                            />
+            <ScrollView>
+                <Formik initialValues={{ title: '', desc: '', category: '', address: '', price: '', image: '', createdAt: Date.now() }}
+                    onSubmit={value => onSubmitMethod(value)}
+                    validate={(value) => {
+                        const errors = {}
+                        if (!value.title) {
+                            ToastAndroid.show('title must be there', ToastAndroid.SHORT);
+                            errors.name = 'Title'
                         }
-                        {/* <Image
+                        return errors;
+                    }}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors }: any) => (
+                        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+                            <Text style={{ fontSize: hp(3), fontWeight: 'bold' }}>Add new post</Text>
+                            <Text style={{ fontSize: hp(2) }}>Create new post and start selling</Text>
+                            <TouchableOpacity
+                                onPress={pickImage}
+                                style={{ margin: hp(1), backgroundColor: '#b3e6ff', padding: 5, borderRadius: hp(1), alignItems: 'center', justifyContent: 'center', }}>
+                                {
+                                    image ? <Image source={{ uri: image }} style={{ width: hp(15), height: hp(10) }} /> : <Image
+                                        style={{ height: hp(10), width: hp(15), margin: 0, }}
+                                        source={require('@/assets/images/imagePlaceholder2.png')}
+                                        resizeMode='stretch'
+                                    />
+                                }
+                                {/* <Image
                             style={{ height: hp(10), width: hp(15), margin: 0, }}
                             source={require('@/assets/images/imagePlaceholder2.png')}
                             resizeMode='stretch'
                         /> */}
-                    </TouchableOpacity>
-                    <TextInput
-                        style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
-                        placeholder='Title'
-                        value={values.title}
-                        onChangeText={handleChange('title')}
-                    />
-                    <TextInput
-                        style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
-                        placeholder='Description'
-                        value={values.desc}
-                        numberOfLines={5}
-                        textAlignVertical='top'
-                        onChangeText={handleChange('desc')}
-                    />
-                    <TextInput
-                        style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
-                        placeholder='Price'
-                        value={values.price}
-                        keyboardType='number-pad'
-                        onChangeText={handleChange('price')}
-                    />
-                    <TextInput
-                        style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
-                        placeholder='Address'
-                        value={values.address}
-                        onChangeText={handleChange('address')}
-                    />
-                    <Picker
-                        selectedValue={values.category}
-                        style={{ height: 50, width: hp(30) }}
-                        onValueChange={handleChange('category')}>
-                        {
-                            categoryList && categoryList.map((category: any, index: number) => {
-                                return (<Picker.Item label={category.name} value={category.name} />)
-                            })
-                        }
+                            </TouchableOpacity>
+                            <TextInput
+                                style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
+                                placeholder='Title'
+                                value={values.title}
+                                onChangeText={handleChange('title')}
+                            />
+                            <TextInput
+                                style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
+                                placeholder='Description'
+                                value={values.desc}
+                                numberOfLines={5}
+                                textAlignVertical='top'
+                                onChangeText={handleChange('desc')}
+                            />
+                            <TextInput
+                                style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
+                                placeholder='Price'
+                                value={values.price}
+                                keyboardType='number-pad'
+                                onChangeText={handleChange('price')}
+                            />
+                            <TextInput
+                                style={{ borderWidth: 1, borderRadius: 10, padding: 10, paddingHorizontal: 17, fontSize: 17, width: hp(30), marginVertical: hp(1) }}
+                                placeholder='Address'
+                                value={values.address}
+                                onChangeText={handleChange('address')}
+                            />
+                            <Picker
+                                selectedValue={values.category}
+                                style={{ height: 50, width: hp(30) }}
+                                onValueChange={handleChange('category')}>
+                                {
+                                    categoryList && categoryList.map((category: any, index: number) => {
+                                        return (<Picker.Item label={category.name} value={category.name} key={index} />)
+                                    })
+                                }
 
-                    </Picker>
-                    <TouchableOpacity onPress={handleSubmit} style={{
-                        margin: hp(1),
-                        backgroundColor: loading ? '#ccc' : '#0078FF',
-                        padding: hp(1)
-                    }}
-                        disabled={loading}
-                    >
-                        {
-                            loading ? <ActivityIndicator color='#fff' style={{ width: 50 }} /> :
-                                <Text style={{ fontSize: 17, color: 'blue' }}>Submit</Text>
-                        }
+                            </Picker>
+                            <TouchableOpacity onPress={handleSubmit} style={{
+                                margin: hp(1),
+                                backgroundColor: loading ? '#ccc' : '#0078FF',
+                                padding: hp(1)
+                            }}
+                                disabled={loading}
+                            >
+                                {
+                                    loading ? <ActivityIndicator color='#fff' style={{ width: 50 }} /> :
+                                        <Text style={{ fontSize: 17, color: 'blue' }}>Submit</Text>
+                                }
 
-                    </TouchableOpacity>
-                </View>
-            )}
-        </Formik >
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </Formik >
+            </ScrollView>
+        </KeyboardAvoidingView>
+
     )
 }
 
