@@ -1,6 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { router } from 'expo-router';
 
 const Categories = ({ categoryList }: any) => {
     // console.log(categoryList);
@@ -26,6 +27,13 @@ const Categories = ({ categoryList }: any) => {
                                     width: wp(21), // Adjust width to fit in 4 columns properly
                                     backgroundColor: '#e6ecff'
                                 }}
+                                onPress={() => router.push({
+                                    pathname: '/ItemListScreen',
+                                    params: {
+                                        category: item.name
+                                    }
+                                })}
+
                             >
                                 <Image
                                     source={{ uri: item.icon }}
