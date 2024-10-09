@@ -52,13 +52,13 @@ const ItemList = () => {
             const q = query(collection(db, 'userPost'), where('category', '==', params.category));
             const snapshot = await getDocs(q);
             // console.log('category1', typeof (snapshot))
-            console.log('category1', snapshot)
+            // console.log('category1', snapshot)
             setItems([]);
             // const itemList: any[] = [];
             snapshot.forEach((doc: any) => {
                 // itemList.push(doc.data()); // Push the data to the itemList array
                 setItems((prevData: any) => [...prevData, doc.data()])
-                console.log('category', doc.data())
+                // console.log('category', doc.data())
             });
             // setItems(itemList); // Update the state with the fetched items
         } catch (error) {
