@@ -33,12 +33,8 @@ export default function RootLayout() {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name='/(Screens)/index' /> */}
         <Stack.Screen name="+not-found" />
         <Stack.Screen name="index" options={{ headerShown: false }} />
-
-
-
       </Stack>
     </ThemeProvider>
 

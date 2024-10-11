@@ -51,16 +51,6 @@ const HomeScreen = () => {
     }
 
     return (
-        // <ScrollView
-        //     style={{ flex: 1, marginTop: hp(5), marginHorizontal: hp(1) }}
-        // >
-        //     <View>
-        //         <Header />
-        //         <Slider sliderList={sliderList} />
-        //         <Categories categoryList={categoryList} />
-        //         <LatestItemList latestItemList={latestItemList} />
-        //     </View>
-        // </ScrollView>
         <LatestItemList sliderList={sliderList} categoryList={categoryList} latestItemList={latestItemList} />
     )
 }

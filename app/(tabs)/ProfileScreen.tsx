@@ -3,9 +3,6 @@ import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { image } from '@/assets/images';
-// import { FlatList } from 'react-native-reanimated/lib/typescript/Animated';
-// import MyProfle from '@assets/images/MyProfile.png';
-// import MyProfileImage from '@assets/images/MyProfile.png';
 
 const ProfileScreen = () => {
     const menuList = [
@@ -30,9 +27,7 @@ const ProfileScreen = () => {
             <View style={{ alignItems: 'center' }}>
                 <View style={{
                     flexDirection: 'column',
-                    // gap: hp(1.5), 
-                    // marginBottom: hp(1), 
-                    // width: 250
+
                 }}>
 
                     <View style={{ alignItems: 'center', }}>
@@ -57,7 +52,6 @@ const ProfileScreen = () => {
                 contentContainerStyle={{
                     width: '100%',
                     justifyContent: 'space-between', // Distribute space evenly between items
-                    // flexDirection: 'row', // Make sure items are arranged in a row
                     paddingVertical: wp(6), // Padding between edges and items
                 }}
                 horizontal={true}

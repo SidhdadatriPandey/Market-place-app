@@ -22,9 +22,9 @@ const Categories = ({ categoryList }: any) => {
                                     margin: 5,
                                     borderRadius: 10,
                                     // padding: 10,
-                                    alignItems: 'center', // Center content
-                                    justifyContent: 'center', // Center content vertically
-                                    width: wp(21), // Adjust width to fit in 4 columns properly
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: wp(21),
                                     backgroundColor: '#e6ecff'
                                 }}
                                 onPress={() => router.push({
@@ -38,10 +38,10 @@ const Categories = ({ categoryList }: any) => {
                                 <Image
                                     source={{ uri: item.icon }}
                                     style={{
-                                        width: wp(20), // Adjust width to fit well in the button
+                                        width: wp(20),
                                         height: 50,
                                         borderRadius: 8,
-                                        resizeMode: 'contain', // Ensure the image scales correctly
+                                        resizeMode: 'contain',
                                     }}
                                 />
                                 <Text style={{ marginTop: 5, textAlign: 'center' }}>{item.name}</Text>
@@ -53,7 +53,7 @@ const Categories = ({ categoryList }: any) => {
                     }
                 }}
 
-                keyExtractor={({ item, index }) => index} // Ensure a unique key for each item
+                keyExtractor={({ item, index }) => index}
             />
             <Text style={{
                 fontWeight: 'bold',

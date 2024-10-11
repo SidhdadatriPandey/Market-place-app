@@ -1,7 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import { router } from 'expo-router'
-import Categories from './HomeComponents/Categories';
 
 const PostItem = ({ item }: any) => {
     // console.log('item', item.image);
@@ -20,18 +18,6 @@ const PostItem = ({ item }: any) => {
                 shadowRadius: 8,
                 elevation: 3
             }}
-        // onPress={() => router.push({
-        //     pathname: '/ProductDetailScreen',
-        //     params: {
-        //         address: item.address,
-        //         Category: item.category,
-        //         desc: item.desc,
-        //         // image: item.image,
-        //         image: encodeURIComponent(item.image),
-        //         price: item.price,
-        //         title: item.title
-        //     }
-        // })}
         >
             <Image
                 source={{ uri: item?.image }}
