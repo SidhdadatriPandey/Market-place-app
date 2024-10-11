@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
@@ -9,6 +9,7 @@ const ItemList = () => {
     const params = useLocalSearchParams();
     const db = getFirestore(app);
     const [items, setItems] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (params.category) {
@@ -18,6 +19,7 @@ const ItemList = () => {
 
     const getItemListByCategory = async () => {
         try {
+            setLoading(true);
             const q = query(collection(db, 'userPost'), where('category', '==', params.category));
             const snapshot = await getDocs(q);
             // console.log('category1', typeof (snapshot))
@@ -27,10 +29,12 @@ const ItemList = () => {
             snapshot.forEach((doc: any) => {
                 setItems((prevData: any) => [...prevData, doc.data()])
             });
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching item list by category: ', error);
         }
     };
+    if (loading) return <ActivityIndicator size="large" color="#00ff00" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
     return (
         <View>
             {
