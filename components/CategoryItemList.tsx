@@ -4,7 +4,7 @@ import PostItem from './PostItem'
 import { ActivityIndicator } from 'react-native'
 
 const CategoryItemList = ({ latestItemList }: any) => {
-    console.log('latestitemlist2222', latestItemList);
+    // console.log('latestitemlist2222', latestItemList);
     return (
         <View style={{ padding: 10, backgroundColor: '#f5f5f5', paddingTop: 45 }}>
             <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'blue', margin: 'auto', textAlign: 'center' }}>{latestItemList[0]?.category}</Text>

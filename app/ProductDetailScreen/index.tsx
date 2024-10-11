@@ -23,7 +23,7 @@ const ProductDetail = () => {
         // If it's a string, decode it
         decodedImageUrl = decodeURIComponent(image);
     }
-    console.log('params', decodedImageUrl);
+    // console.log('params', decodedImageUrl);
     return (
         <View>
             <Image

@@ -4,7 +4,7 @@ import { router } from 'expo-router'
 import Categories from './HomeComponents/Categories';
 
 const PostItem = ({ item }: any) => {
-    console.log('item', item.image);
+    // console.log('item', item.image);
     return (
         <TouchableOpacity
             style={{

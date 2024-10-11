@@ -68,11 +68,6 @@ const ItemList = () => {
     // console.log('itemList', items)
     return (
         <View>
-            {/* <Text>ItemList</Text> */}
-            {/* {items.map((item, index) => (
-                <Text key={index}>{JSON.stringify(item)}</Text> // Display each item
-            ))} */}
-            {/* <ItemList latestItemList={items} /> */}
             {
                 items.length > 0 ? <CategoryItemList latestItemList={items} /> :
                     <Text style={{ marginTop: 100, fontSize: 30, fontWeight: 'bold', color: 'blue', margin: 'auto', textAlign: 'center', justifyContent: 'center', alignItems: 'center' }}>No data found</Text>
